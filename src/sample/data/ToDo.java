@@ -5,12 +5,15 @@ import java.util.List;
 
 public class ToDo {
     private List<Note> items;
+    private String name;
 
-    public ToDo(){
+    public ToDo(String name){
+        this.name = name;
         items = new ArrayList<>();
     }
 
-    public ToDo(List<Note> items) {
+    public ToDo(List<Note> items, String name) {
+        this.name = name;
         items = new ArrayList<>();
         this.items = items;
     }
@@ -22,5 +25,4 @@ public class ToDo {
     public void removeItem(Note note){
         items.remove(note);
     }
-
 }

@@ -1,25 +1,24 @@
 package sample.data;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Note {
     private String content;
     private String title;
-    private List<String> tags;
+    private String tags;
     private String reminder;
+    private boolean done;
+    private String list;
 
     public Note(String content, String title) {
         this.content = content;
         this.title = title;
     }
 
-    public Note(String content, String title, List<String> tags, String reminder) {
+    public Note(String title, String tags, String reminder, String list, String content) {
         this.content = content;
         this.title = title;
-        tags = new ArrayList<>();
         this.tags = tags;
         this.reminder = reminder;
+        this.list = list;
     }
 
     public String getContent() {
@@ -38,11 +37,11 @@ public class Note {
         this.title = title;
     }
 
-    public List<String> getTags() {
+    public String getTags() {
         return tags;
     }
 
-    public void setTags(List<String> tags) {
+    public void setTags(String tags) {
         this.tags = tags;
     }
 
@@ -52,5 +51,29 @@ public class Note {
 
     public void setReminder(String reminder) {
         this.reminder = reminder;
+    }
+
+    public void markAsDone(){
+        this.done = true;
+    }
+
+    public String getList() {
+        return list;
+    }
+
+    public void setList(String list) {
+        this.list = list;
+    }
+
+    @Override
+    public String toString() {
+        return "Note{" +
+                "content='" + content + '\'' +
+                ", title='" + title + '\'' +
+                ", tags='" + tags + '\'' +
+                ", reminder='" + reminder + '\'' +
+                ", done=" + done +
+                ", list='" + list + '\'' +
+                '}';
     }
 }
