@@ -42,6 +42,11 @@ public class DataSource {
     public static final String QUERY_NOTES_BY_WORD =
             "SELECT * FROM " + TABLE_NOTES + " WHERE " + COLUMN_NOTES_TITLE + " LIKE '%word%' OR " + COLUMN_NOTES_CONTENT + " LIKE '%word%'";
 
+    public static final String QUERY_NOTES_BY_ALL =
+            "SELECT * FROM " + TABLE_NOTES + " WHERE " + "(" + COLUMN_NOTES_TITLE + " LIKE '%word%' OR "
+                    + COLUMN_NOTES_CONTENT + " LIKE '%word%') " + "AND " + COLUMN_NOTES_REMINDER +
+            " CEVA AND " + COLUMN_NOTES_TAGS + " LIKE 'stags'";
+
     public static final String DELETE_NOTE =
             "DELETE FROM " + TABLE_NOTES + " WHERE " + COLUMN_NOTES_TITLE + " LIKE 'name'";
 
@@ -182,6 +187,43 @@ public class DataSource {
         }
     }
 
+//    public static final String QUERY_NOTES_BY_ALL =
+//            "SELECT * FROM " + TABLE_NOTES + " WHERE " + COLUMN_NOTES_TITLE + " LIKE '%word%' OR "
+//                    + COLUMN_NOTES_CONTENT + " LIKE '%word%' " + " AND " + COLUMN_NOTES_REMINDER +
+//                    " NULLORNOT AND " + COLUMN_NOTES_TAGS + " LIKE 'tags'";
+
+
+    public ArrayList<Note> getNotesByAllParameters(String word, String tag, Boolean withReminder){
+        String expression;
+
+        if(withReminder==true){
+            expression = "IS NOT NULL";
+        }else{
+            expression = "IS NULL";
+        }
+
+        String query = QUERY_NOTES_BY_ALL
+                .replace("word", word)
+                .replace("stags", tag)
+                .replace("CEVA", expression);
+
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet results = statement.executeQuery(query);
+            ArrayList<Note> notes = new ArrayList<>();
+            while (results.next()){
+                Note note = new Note(results.getString(2), results.getString(3), results.getString(4),
+                        results.getString(5), results.getString(6));
+                System.out.println(note.toString());
+                notes.add(note);
+            }
+            return notes;
+        }catch (SQLException e){
+            System.out.println("Error - " + e.getMessage());
+            return null;
+        }
+    }
+
     public ArrayList<Note> getNotesWithReminder(){
         String query = CHECK_REMINDER;
         try {
@@ -236,7 +278,6 @@ public class DataSource {
             while (results.next()){
                 Note note = new Note(results.getString(2), results.getString(3), results.getString(4),
                         results.getString(5), results.getString(6));
-                System.out.println(note.toString());
                 notes.add(note);
             }
             return notes;

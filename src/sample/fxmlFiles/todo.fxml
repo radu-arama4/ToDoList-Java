@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@styles/todoStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.TodoController">
+
+    <top>
+        <Button fx:id="BackToMenu" onAction="#handleBackToMenu" text="Back to Menu">
+
+        </Button>
+    </top>
+    <center>
+        <VBox id="vbox" alignment="TOP_CENTER">
+            <Label text="ToDo List:">
+
+            </Label>
+            <ListView fx:id="List" editable="true">
+            </ListView>
+            <Button id="butt" onAction="#handleAddNewItem" text="Add New Item">
+
+            </Button>
+        </VBox>
+    </center>
+
+</BorderPane>

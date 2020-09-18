@@ -13,6 +13,7 @@ public class MainTest {
 //        ds.deleteNote("Compunere");
 //        ds.getNotesWithReminder();
         //ds.addNoteToList("Simple", "todo");
-        ds.loadToDoList();
+        //ds.loadToDoList();
+        //ds.getNotesByAllParameters("ceva", "super kul", true);
     }
 }

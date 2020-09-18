@@ -67,13 +67,6 @@ public class Note {
 
     @Override
     public String toString() {
-        return "Note{" +
-                "content='" + content + '\'' +
-                ", title='" + title + '\'' +
-                ", tags='" + tags + '\'' +
-                ", reminder='" + reminder + '\'' +
-                ", done=" + done +
-                ", list='" + list + '\'' +
-                '}';
+        return title;
     }
 }
