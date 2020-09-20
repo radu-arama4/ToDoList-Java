@@ -39,13 +39,14 @@ public class DataSource {
     public static final String QUERY_NOTES_BY_TAG =
             "SELECT * FROM " + TABLE_NOTES + " WHERE " + COLUMN_NOTES_TAGS + " LIKE '%";
 
+    //aiki
     public static final String QUERY_NOTES_BY_WORD =
-            "SELECT * FROM " + TABLE_NOTES + " WHERE " + COLUMN_NOTES_TITLE + " LIKE '%word%' OR " + COLUMN_NOTES_CONTENT + " LIKE '%word%'";
+            "SELECT * FROM " + TABLE_NOTES + " WHERE " + COLUMN_NOTES_TITLE + " LIKE '%word%'";
 
     public static final String QUERY_NOTES_BY_ALL =
             "SELECT * FROM " + TABLE_NOTES + " WHERE " + "(" + COLUMN_NOTES_TITLE + " LIKE '%word%' OR "
                     + COLUMN_NOTES_CONTENT + " LIKE '%word%') " + "AND " + COLUMN_NOTES_REMINDER +
-            " CEVA AND " + COLUMN_NOTES_TAGS + " LIKE 'stags'";
+            " CEVA AND (" + COLUMN_NOTES_TAGS + " LIKE '%stags%'";
 
     public static final String DELETE_NOTE =
             "DELETE FROM " + TABLE_NOTES + " WHERE " + COLUMN_NOTES_TITLE + " LIKE 'name'";
@@ -167,20 +168,17 @@ public class DataSource {
         }
     }
 
-    public ArrayList<Note> getNotesByWord(String word){
+    //actually getNoteByTitle, because Title is unique
+    public Note getNotesByWord(String word){
         String query = QUERY_NOTES_BY_WORD.replace("word", word);
         System.out.println(query);
         try {
             Statement statement = conn.createStatement();
             ResultSet results = statement.executeQuery(query);
-            ArrayList<Note> notes = new ArrayList<>();
-            while (results.next()){
-                Note note = new Note(results.getString(2), results.getString(3), results.getString(4),
-                        results.getString(5), results.getString(6));
-                System.out.println(note.toString());
-                notes.add(note);
-            }
-            return notes;
+            Note note = new Note(results.getString(2), results.getString(3), results.getString(4),
+                    results.getString(5), results.getString(6));
+            System.out.println(note.toString());
+            return note;
         }catch (SQLException e){
             System.out.println("Error - " + e.getMessage());
             return null;
@@ -206,6 +204,14 @@ public class DataSource {
                 .replace("word", word)
                 .replace("stags", tag)
                 .replace("CEVA", expression);
+
+        if(tag.length()==0){
+            query+=" OR " + COLUMN_NOTES_TAGS + " IS NULL)";
+        }else{
+            query+=")";
+        }
+
+        System.out.println(query);
 
         try {
             Statement statement = conn.createStatement();
@@ -243,10 +249,10 @@ public class DataSource {
         }
     }
 
-    public boolean addNoteToList(String name, String list){
+    public boolean addNoteToList(String name){
         String query = ADD_TO_LIST
                 .replace("NAME", name)
-                .replace("LIST", list);
+                .replace("LIST", "true");
         System.out.println(query);
         try{
             Statement statement = conn.createStatement();
@@ -260,6 +266,7 @@ public class DataSource {
 
     public boolean deleteNote(String name){
         String query = DELETE_NOTE.replace("name", name);
+        System.out.println(query);
         try{
             Statement statement = conn.createStatement();
             statement.executeUpdate(query);

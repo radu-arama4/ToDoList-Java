@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="sample.controllers.SettingsController"
             prefHeight="400.0" prefWidth="600.0" stylesheets="styles/settingsStyle.css">
 
-    <VBox>
+    <top>
         <Label text="Settings">
 
         </Label>
         <Button fx:id="BackToMenu" onAction="#handleBackToMenu" text="Back to Menu">
 
         </Button>
-    </VBox>
+    </top>
+    <center>
+        <GridPane>
+            <Label text="Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="Name" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+            <Label text="Storage:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <ChoiceBox fx:id="Storage" value="DataBase" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            <Button onAction="#handleSave" text="Save" GridPane.rowIndex="2"/>
+        </GridPane>
+    </center>
 
-</AnchorPane>
+</BorderPane>

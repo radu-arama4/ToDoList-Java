@@ -9,25 +9,36 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="sample.controllers.NotesController"
+            fx:id="border"
             prefHeight="400.0" prefWidth="600.0" stylesheets="styles/notesStyle.css">
+    <top>
+        <Button fx:id="BackToMenu" onAction="#handleBackToMenu" text="Back to Menu">
+
+        </Button>
+    </top>
     <center>
     <VBox alignment="CENTER">
         <Label text="View Notes" alignment="CENTER">
 
         </Label>
-        <Button fx:id="BackToMenu" onAction="#handleBackToMenu" text="Back to Menu">
 
-        </Button>
-        <ListView fx:id="List">
-
-        </ListView>
-        <GridPane alignment="CENTER">
+        <GridPane>
             <Label GridPane.rowIndex="0" GridPane.columnIndex="0" text="Type a relative word: "/>
             <TextField GridPane.rowIndex="0" GridPane.columnIndex="1" fx:id="searchWord" onKeyReleased="#handleSearch"/>
             <Label GridPane.rowIndex="1" GridPane.columnIndex="0" text="Search by tag: "/>
             <TextField GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="searchTag" onKeyReleased="#handleSearch"/>
             <Label GridPane.rowIndex="2" GridPane.columnIndex="0" text="With reminder: "/>
-            <CheckBox GridPane.rowIndex="2" GridPane.columnIndex="1" fx:id="checkBox" onKeyReleased="#handleSearch"/>
+            <CheckBox GridPane.rowIndex="2" GridPane.columnIndex="1" fx:id="checkBox" onAction="#handleSearch"/>
+        </GridPane>
+        <ListView fx:id="List" onMouseClicked="#handleItem">
+        </ListView>
+        <GridPane alignment="CENTER">
+            <Button fx:id="Details" GridPane.rowIndex="0" GridPane.columnIndex="0"
+                    text="See Details" onAction="#handleSeeInfoButton"></Button>
+            <Button fx:id="AddToList" GridPane.rowIndex="0" GridPane.columnIndex="1"
+                    text="Add to List" onAction="#handleAddToList"></Button>
+            <Button fx:id="Delete" GridPane.rowIndex="0" GridPane.columnIndex="2"
+                    text="Delete Item" onAction="#handleDeleteItem"></Button>
         </GridPane>
     </VBox>
     </center>
